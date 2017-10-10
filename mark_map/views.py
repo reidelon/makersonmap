@@ -10,10 +10,18 @@ logger = logging.getLogger(__name__)
 
 
 class IndexView(generic.TemplateView):
+    """
+    start view for the aplication.
+    """
     template_name = 'mark_map/index.html'
 
 
 def save_coordinates(request):
+    """
+    View who save the coordinates  to the database getting back
+    json with tow parameteres sussces and message first on can be True(success opration) or False(bad operation)
+    second has a message as information.
+    """
     if 'coordinates' in request.POST and request.method == 'POST':
         coordinates = request.POST['coordinates']
         try:
@@ -30,6 +38,9 @@ def save_coordinates(request):
 
 
 def reset_data(request):
+    """
+    View who delete all the coordinates in the database.
+    """
     if request.method == 'POST':
         Coordinates.objects.all().delete()
         result = {'success': True, 'message': "All the data were erased."}
